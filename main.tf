@@ -85,3 +85,40 @@ resource "azurerm_storage_container" "messagecontent" {
   storage_account_name  = azurerm_storage_account.storage.name
   container_access_type = "private"
 }
+
+# -----------------------------
+# SAS Token (Write Only)  # Ramesh Ramesh ramesh
+# -----------------------------
+data "azurerm_storage_account_sas" "write_sas" {
+  connection_string = azurerm_storage_account.storage.primary_connection_string
+  https_only        = true
+
+  resource_types {
+    service   = true
+    container = true
+    object    = true
+  }
+
+  services {
+    blob  = true
+    file  = false
+    queue = false
+    table = false
+  }
+
+  start  = formatdate("YYYY-MM-DD", timestamp())
+  expiry = formatdate("YYYY-MM-DD", timeadd(timestamp(), "168h"))
+
+  permissions {
+    read    = false
+    write   = true
+    delete  = false
+    list    = false
+    add     = false
+    create  = false
+    update  = false
+    process = false
+    tag     = false
+    filter  = false
+  }
+}
