@@ -245,3 +245,14 @@ resource "azurerm_cosmosdb_sql_container" "Messages" {
   partition_key_path  = "/chatId"
   throughput          = 400
 }
+
+# -----------------------------
+# Azure Container Registry
+# -----------------------------
+resource "azurerm_container_registry" "acr" {
+  name                = "${local.project}acr${random_id.suffix.hex}"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  sku                 = "Basic"
+  admin_enabled       = false
+}
