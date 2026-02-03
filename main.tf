@@ -36,3 +36,13 @@ resource "random_id" "kv_suffix" {
     # Smaller suffix specifically for Key Vault naming
   byte_length = 2
 }
+
+# -----------------------------
+# Resource Group
+# -----------------------------
+resource "azurerm_resource_group" "rg" {
+      # Central container for all Azure resources
+  name     = "${local.project}-rg-${random_id.suffix.hex}"
+  location = var.location
+  tags     = var.tags
+}
