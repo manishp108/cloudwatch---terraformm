@@ -179,3 +179,69 @@ resource "azurerm_cosmosdb_sql_database" "socialappdb" {
   resource_group_name = azurerm_resource_group.rg.name
   account_name        = azurerm_cosmosdb_account.cosmos.name
 }
+
+# -----------------------------
+# Cosmos DB Containers  # Ramesh Ramesh
+# -----------------------------
+resource "azurerm_cosmosdb_sql_container" "Users" {
+  name                = "Users"
+  resource_group_name = azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.cosmos.name
+  database_name       = azurerm_cosmosdb_sql_database.socialappdb.name
+  partition_key_path  = "/userId"
+  throughput          = 400
+}
+
+resource "azurerm_cosmosdb_sql_container" "Posts" {
+  name                = "Posts"
+  resource_group_name = azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.cosmos.name
+  database_name       = azurerm_cosmosdb_sql_database.socialappdb.name
+  partition_key_path  = "/postId"
+  throughput          = 400
+}
+
+resource "azurerm_cosmosdb_sql_container" "Comments" {
+  name                = "Comments"
+  resource_group_name = azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.cosmos.name
+  database_name       = azurerm_cosmosdb_sql_database.socialappdb.name
+  partition_key_path  = "/commentId"
+  throughput          = 400
+}
+
+resource "azurerm_cosmosdb_sql_container" "Likes" {
+  name                = "Likes"
+  resource_group_name = azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.cosmos.name
+  database_name       = azurerm_cosmosdb_sql_database.socialappdb.name
+  partition_key_path  = "/likeId"
+  throughput          = 400
+}
+
+resource "azurerm_cosmosdb_sql_container" "ReportedPosts" {
+  name                = "ReportedPosts"
+  resource_group_name = azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.cosmos.name
+  database_name       = azurerm_cosmosdb_sql_database.socialappdb.name
+  partition_key_path  = "/postId"
+  throughput          = 400
+}
+
+resource "azurerm_cosmosdb_sql_container" "Chats" {
+  name                = "Chats"
+  resource_group_name = azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.cosmos.name
+  database_name       = azurerm_cosmosdb_sql_database.socialappdb.name
+  partition_key_path  = "/chatId"
+  throughput          = 400
+}
+
+resource "azurerm_cosmosdb_sql_container" "Messages" {
+  name                = "Messages"
+  resource_group_name = azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.cosmos.name
+  database_name       = azurerm_cosmosdb_sql_database.socialappdb.name
+  partition_key_path  = "/chatId"
+  throughput          = 400
+}
