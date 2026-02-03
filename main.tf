@@ -46,3 +46,42 @@ resource "azurerm_resource_group" "rg" {
   location = var.location
   tags     = var.tags
 }
+
+# -----------------------------
+# Storage Account
+# -----------------------------
+resource "azurerm_storage_account" "storage" {
+    # Blob storage for media, profiles, and messages
+  name                     = "${local.project}store${random_id.suffix.hex}"
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+  account_kind             = "StorageV2"
+  min_tls_version          = "TLS1_2"
+  tags                     = var.tags
+}
+
+# -----------------------------
+# Storage Containers
+# -----------------------------
+resource "azurerm_storage_container" "media" {
+     # Stores post media (images/videos)
+  name                  = "media"
+  storage_account_name  = azurerm_storage_account.storage.name
+  container_access_type = "private"
+}
+
+resource "azurerm_storage_container" "profilepics" {
+     # Stores user profile pictures
+  name                  = "profilepics"
+  storage_account_name  = azurerm_storage_account.storage.name
+  container_access_type = "private"
+}
+
+resource "azurerm_storage_container" "messagecontent" {
+    # Stores chat message attachments
+  name                  = "messagecontent"
+  storage_account_name  = azurerm_storage_account.storage.name
+  container_access_type = "private"
+}
