@@ -3,3 +3,9 @@ variable "project_name" {
   type        = string
   default     = "socialapp"
 }
+
+variable "location" {
+  description = "Azure region to deploy to"
+  type        = string
+  default     = "centralus"
+}
