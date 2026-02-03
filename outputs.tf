@@ -17,3 +17,33 @@ output "key_vault_uri" {
   value       = azurerm_key_vault.kv.vault_uri
   description = "Key Vault URI"
 }
+
+output "key_vault_uri" {
+  value       = azurerm_key_vault.kv.vault_uri
+  description = "Key Vault URI"
+}
+
+output "cosmosdb_account_name" {
+  value       = azurerm_cosmosdb_account.cosmos.name
+  description = "Cosmos DB account name"
+}
+
+output "cosmosdb_endpoint" {
+  value       = azurerm_cosmosdb_account.cosmos.endpoint
+  description = "Cosmos DB endpoint"
+}
+
+output "cosmosdb_database_name" {
+  value       = azurerm_cosmosdb_sql_database.socialappdb.name
+  description = "Cosmos DB database name"
+}
+
+output "cosmosdb_users_container_name" {
+  value       = azurerm_cosmosdb_sql_container.Users.name
+  description = "Cosmos DB Users container name"
+}
+
+output "cosmosdb_posts_container_name" {
+  value       = azurerm_cosmosdb_sql_container.Posts.name
+  description = "Cosmos DB Posts container name"
+}
