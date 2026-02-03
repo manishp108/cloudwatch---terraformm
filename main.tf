@@ -151,3 +151,31 @@ resource "azurerm_key_vault" "kv" {
   }
 }
 
+# -----------------------------
+# Cosmos DB Account
+# -----------------------------
+resource "azurerm_cosmosdb_account" "cosmos" {
+  name                = "${local.project}cosmos${random_id.suffix.hex}"
+  location            = azurerm_resource_group.rg.location
+  resource_group_name = azurerm_resource_group.rg.name
+  offer_type          = "Standard"
+  kind                = "GlobalDocumentDB"
+
+  consistency_policy {
+    consistency_level = "Session"
+  }
+
+  geo_location {
+    location          = azurerm_resource_group.rg.location
+    failover_priority = 0
+  }
+}
+
+# -----------------------------
+# Cosmos DB SQL Database
+# -----------------------------
+resource "azurerm_cosmosdb_sql_database" "socialappdb" {
+  name                = "socialappdb"
+  resource_group_name = azurerm_resource_group.rg.name
+  account_name        = azurerm_cosmosdb_account.cosmos.name
+}
